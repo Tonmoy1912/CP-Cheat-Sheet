@@ -26,3 +26,22 @@ ll mminverse(ll a,ll m){//return multiplicative inverse of a
     ans=(ans%m+m)%m;
     return ans;
 }
+
+ll power(ll a,ll n,ll m){
+    if(n==0){
+        return 1;
+    }
+    ll p=power(a,n/2,m);
+    p=(p*p)%m;
+    if(n%2){
+        p=(p*a)%m;
+    }
+    return p;
+}
+
+ll modInverse(ll a,ll m){
+    if(__gcd(a,m)!=1){
+        return -1;
+    }
+    return power(a,m-2,m);
+}
