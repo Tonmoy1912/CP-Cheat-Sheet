@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//return the diameter of a tree given in adjacency list format
+// return the diameter of a tree given in adjacency list format
 int getDiameter(vector<vector<int>> &adj)
 {
     int n = adj.size();
@@ -9,11 +9,11 @@ int getDiameter(vector<vector<int>> &adj)
     {
         return 0;
     }
-    //to store the degree of a node
+    // to store the degree of a node
     vector<int> deg(n);
-    //to store the node whose current degree is one
+    // to store the node whose current degree is one
     queue<int> q;
-    // to store the max 2 depth of node found so far 
+    // to store the max 2 depth of node found so far
     vector<priority_queue<int, vector<int>, greater<int>>> depth(n);
     int ans = 0;
     // to store the nodes from which the current node is expoled so far
@@ -64,4 +64,30 @@ int getDiameter(vector<vector<int>> &adj)
         }
     }
     return ans;
+}
+
+
+void dfsDia(vector<vector<int>> &adj, int node, int parent, int dis, pair<int, int> &res)
+{
+    if (dis > res.first)
+    {
+        res.first = dis;
+        res.second = node;
+    }
+    for (auto it : adj[node])
+    {
+        if (it != parent)
+        {
+            dfsDia(adj, it, node, dis + 1, res);
+        }
+    }
+}
+
+// return the diameter of a tree given in adjacency list format
+int getDiameter(vector<vector<int>> &adj)
+{
+    pair<int, int> res = {INT_MIN, -1}; // depth,node
+    dfsDia(adj, 0, -1, 0, res);
+    dfsDia(adj, res.second, -1, 0, res);
+    return res.first;
 }
