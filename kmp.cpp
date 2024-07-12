@@ -18,6 +18,8 @@ class KMP{
         return arr;
     }
     public:
+    /* if sub is a substring of str the it return the first index 
+    in str where it appears else return -1*/
     int kmp(string &str,string &sub){
         int m=str.size();
         int n=sub.size();
